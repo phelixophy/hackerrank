@@ -1,0 +1,52 @@
+nclude <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int N;
+    cin >> N;
+    vector<int> score;
+    vector<int> candy;
+    for (int i=0; i<N; ++i){
+        int can;
+        cin >> can;
+        score.push_back(can);
+        candy.push_back(1);
+    }
+    int can=1;
+    for (int j=1; j<N; ++j){
+        if(score.at(j)>score.at(j-1)){
+            ++can;
+        }
+        else {
+            can = 1;
+        }
+        candy.at(j) = can;
+    }
+    int rcan=1;
+    for (int k=N-2; k>=0; --k){
+        if(score.at(k)>score.at(k+1)){
+            ++rcan;
+        }
+        else {
+            rcan=1;
+        }
+        candy.at(k) = max(rcan, candy.at(k));        
+    }    
+
+    
+    int Ans=0;
+    for (int p=0; p<N; ++p){
+        Ans+=candy.at(p);
+    }
+    
+    cout << Ans << endl;
+    
+    return 0;
+}
+
+
